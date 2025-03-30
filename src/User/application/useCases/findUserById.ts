@@ -1,5 +1,5 @@
 import IUserRepository from '../../domain/repository/UserRepository';
-import UserId from '../../domain/valueObject/UserId';
+import UserId from '../../../Shared/domain/valueObject/UserId';
 import UseCaseBase from '../../../Shared/application/UseCaseBase';
 import { IUser } from '../UserModel';
 

@@ -1,7 +1,7 @@
 import { IUser } from '../../application/UserModel';
 import User from '../models/User';
 import UserEmail from '../valueObject/UserEmail';
-import UserId from '../valueObject/UserId';
+import UserId from '../../../Shared/domain/valueObject/UserId';
 import UserName from '../valueObject/UserName';
 
 export default interface IUserRepository {

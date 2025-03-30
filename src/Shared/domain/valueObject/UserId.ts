@@ -1,4 +1,4 @@
-import { UUIDValueObject } from '../../../Shared/domain/valueObject/UUIDValueObject';
+import { UUIDValueObject } from './UUIDValueObject';
 
 export default class UserId extends UUIDValueObject {
   constructor(value: string) {

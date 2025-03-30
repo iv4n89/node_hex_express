@@ -2,7 +2,7 @@ import { IUser } from '../../application/UserModel';
 import User from '../../domain/models/User';
 import IUserRepository from '../../domain/repository/UserRepository';
 import UserEmail from '../../domain/valueObject/UserEmail';
-import UserId from '../../domain/valueObject/UserId';
+import UserId from '../../../Shared/domain/valueObject/UserId';
 import UserName from '../../domain/valueObject/UserName';
 import { UserModel } from '../models/UserModel';
 import toMongoModel from '../toMongoModel';

@@ -1,6 +1,6 @@
 import User from '../../domain/models/User';
 import IUserRepository from '../../domain/repository/UserRepository';
-import UserId from '../../domain/valueObject/UserId';
+import UserId from '../../../Shared/domain/valueObject/UserId';
 
 export default class UpdateUserUseCase {
   constructor(private readonly userRepository: IUserRepository) {}

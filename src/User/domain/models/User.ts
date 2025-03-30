@@ -1,5 +1,5 @@
 import UserEmail from '../valueObject/UserEmail';
-import UserId from '../valueObject/UserId';
+import UserId from '../../../Shared/domain/valueObject/UserId';
 import UserName from '../valueObject/UserName';
 
 export default class User {

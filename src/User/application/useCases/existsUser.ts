@@ -1,6 +1,6 @@
 import UseCaseBase from '../../../Shared/application/UseCaseBase';
 import IUserRepository from '../../domain/repository/UserRepository';
-import UserId from '../../domain/valueObject/UserId';
+import UserId from '../../../Shared/domain/valueObject/UserId';
 
 export default class ExistsUserUseCase extends UseCaseBase<string, boolean> {
   constructor(private readonly userRepository: IUserRepository) {
