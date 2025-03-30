@@ -1,0 +1,57 @@
+import UserId from '../../../Shared/domain/valueObject/UserId';
+import Review from '../../domain/models/Review';
+import IReviewRepository from '../../domain/repository/ReviewRepository';
+import ReviewId from '../../domain/valueObject/ReviewId';
+import { ReviewModel } from '../models/ReviewModel';
+import toDomainModel from '../toDomainModel';
+import toMongoModel from '../toMongoModel';
+
+export default class ReviewRepository implements IReviewRepository {
+  constructor() {}
+
+  async save(review: Review): Promise<boolean> {
+    const reviewMongo = toMongoModel(review);
+    const reviewModel = ReviewModel.create(reviewMongo);
+    const result = await (await reviewModel).save();
+    return !!result;
+  }
+
+  async findById(id: ReviewId): Promise<Review | null> {
+    const reviewId = id.getValue();
+    const reviewModel = await ReviewModel.findOne({ id: reviewId });
+    if (!reviewModel) {
+      return null;
+    }
+    return toDomainModel(reviewModel);
+  }
+
+  async findByUserId(userId: UserId): Promise<Array<Review> | null> {
+    const userIdValue = userId.getValue();
+    const result = await ReviewModel.find({ userId: userIdValue });
+    if (!result) {
+      return null;
+    }
+    return result.map((review) => toDomainModel(review));
+  }
+
+  async findAll(): Promise<Array<Review> | null> {
+    const result = await ReviewModel.find();
+    if (!result) {
+      return null;
+    }
+    return result.map((review) => toDomainModel(review));
+  }
+
+  async delete(id: ReviewId): Promise<boolean> {
+    const reviewId = id.getValue();
+    const result = await ReviewModel.deleteOne({ id: reviewId });
+    return result.deletedCount === 1;
+  }
+
+  async update(review: Review): Promise<boolean> {
+    const reviewMongo = toMongoModel(review);
+    const id = reviewMongo.id;
+    const result = await ReviewModel.updateOne({ id }, reviewMongo);
+    return result.modifiedCount === 1;
+  }
+}

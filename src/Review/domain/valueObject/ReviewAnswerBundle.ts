@@ -12,28 +12,14 @@ export default class ReviewAnswerBundle extends ValueObject<
   }
 
   validate(
-    value: Array<{ answer: ReviewAnswer; comment: ReviewComment }>
+    value: Array<IReviewAnswer>
   ): void {
     if (!Array.isArray(value)) {
       throw new Error('Invalid value for ReviewAnswerBundle: must be an array');
     }
-    value.forEach((item) => {
-      if (!(item.answer instanceof ReviewAnswer)) {
-        throw new Error(
-          'Invalid value for ReviewAnswerBundle: answer must be a ReviewAnswer instance'
-        );
-      }
-      if (!(item.comment instanceof ReviewComment)) {
-        throw new Error(
-          'Invalid value for ReviewAnswerBundle: comment must be a ReviewComment instance'
-        );
-      }
-    });
   }
 
-  public static create(
-    value: Array<IReviewAnswer>
-  ): ReviewAnswerBundle {
+  public static create(value: Array<IReviewAnswer>): ReviewAnswerBundle {
     return new ReviewAnswerBundle(value);
   }
 

@@ -1,4 +1,4 @@
-import { router } from '../../../Shared/infrastruture/routes/Router';
+import { Router } from 'express';
 import {
   createUser,
   deleteUser,
@@ -10,6 +10,8 @@ import {
   userExists,
   userExistsByEmail,
 } from '../controller/UserController';
+
+const router = Router();
 
 router.post('/', createUser);
 router.get('/:id', getUserById);

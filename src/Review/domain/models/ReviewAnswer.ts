@@ -1,8 +1,8 @@
-import ReviewAnswer from "../valueObject/ReviewAnswer";
-import ReviewComment from "../valueObject/ReviewComment";
+import ReviewAnswer from '../valueObject/ReviewAnswer';
+import ReviewComment from '../valueObject/ReviewComment';
 
 export interface IReviewAnswer {
-    id: number;
-    answer: ReviewAnswer;
-    comment: ReviewComment;
+  id: number;
+  answer: ReviewAnswer;
+  comment: ReviewComment;
 }

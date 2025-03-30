@@ -1,7 +1,8 @@
 import { Application } from 'express';
 import Express from 'express';
 import mongoConnection from '../Shared/infrastruture/mongo/mongoConnection';
-import userRouter from '../User/infrastruture/routes/UserRoutes'
+import userRouter from '../User/infrastruture/routes/UserRoutes';
+import reviewRouter from '../Review/infrastruture/routes/ReviewRoutes';
 import errorHandling from '../middlewares/errorHandling';
 
 export class Server {
@@ -47,5 +48,6 @@ export class Server {
     });
 
     this.express.use('/api/user', userRouter);
+    this.express.use('/api/review', reviewRouter);
   }
 }
