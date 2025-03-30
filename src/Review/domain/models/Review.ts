@@ -21,6 +21,11 @@ export default class Review {
         return new Review(id, userId, reviews);
     }
 
+    public updateReviews(reviews: ReviewAnswerBundle): void {
+        this.reviews = reviews;
+        this.updatedAt = new Date();
+    }
+
     public static createWithoutId(userId: UserId, reviews: ReviewAnswerBundle): Review {
         return new Review(ReviewId.generate(), userId, reviews);
     }
