@@ -80,7 +80,9 @@ export async function deleteUser(req: Request, res: Response) {
 export async function updateUser(req: Request, res: Response) {
   try {
     const { id } = req.params;
-    const { name, email } = req.body;
+    const name = req.body.name || undefined;
+    const email = req.body.email || undefined;
+    console.log(name);
     const user = await userService.update(id, name, email);
     if (!user) {
       res.status(404).json({ message: 'User not found' });
