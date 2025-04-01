@@ -45,4 +45,8 @@ export default class AuthPassword extends ValueObject<string> {
         const hashedPassword = new AuthPassword(value).getHashedPassword();
         return new AuthPassword(hashedPassword);
     }
+
+    public verify(plainTextPassword: string): boolean {
+        return bcrypt.compareSync(plainTextPassword, this.value);
+    }
 }

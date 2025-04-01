@@ -25,13 +25,23 @@ export default class Token extends ValueObject<string> {
     return new Token(token);
   }
 
-  public static verify(token: string): Record<string, unknown> | null {
+  public static verify(
+    token: string,
+    { userId }: { userId: string }
+  ): boolean {
     try {
       const secretKey = process.env.JWT_SECRET;
-      return jwt.verify(token, secretKey as string) as Record<string, unknown>;
+      const decoded = jwt.verify(token, secretKey as string) as Record<
+        string,
+        unknown
+      >;
+      if (decoded.userId !== userId) {
+        return false;
+      }
+      return true;
     } catch (error) {
       console.error('Token verification failed:', error);
-      return null;
+      return false;
     }
   }
 }
