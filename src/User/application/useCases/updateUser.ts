@@ -13,8 +13,8 @@ export default class UpdateUserUseCase {
     }
     const updatedUser = User.createFromPrimitives({
       id,
-      name: name || user.name,
-      email: email || user.email,
+      name: name || user.name.getValue(),
+      email: email || user.email.getValue(),
     });
     return await this.userRepository.update(updatedUser);
   }

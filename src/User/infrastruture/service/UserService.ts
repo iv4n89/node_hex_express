@@ -7,6 +7,7 @@ import { SaveUser } from '../../application/useCases/saveUser';
 import UpdateUserUseCase from '../../application/useCases/updateUser';
 import { IUser } from '../../application/UserModel';
 import UserRepository from '../repository/UserRepository';
+import toMongoModel from '../toMongoModel';
 
 export default class UserService implements IUserService {
   private readonly saveUserUseCase: SaveUser;
@@ -34,15 +35,27 @@ export default class UserService implements IUserService {
   }
 
   async findById(id: string): Promise<IUser | null> {
-    return await this.findUserByIdUseCase.execute(id);
+    const user = await this.findUserByIdUseCase.execute(id);
+    if (!user) {
+      return null;
+    }
+    return toMongoModel(user);
   }
 
   async findByName(name: string): Promise<IUser | null> {
-    return await this.findUserByNameUseCase.execute(name);
+    const user = await this.findUserByNameUseCase.execute(name);
+    if (!user) {
+      return null;
+    }
+    return toMongoModel(user);
   }
 
   async findByEmail(email: string): Promise<IUser | null> {
-    return await this.findUserByNameUseCase.execute(email);
+    const user = await this.findUserByNameUseCase.execute(email);
+    if (!user) {
+      return null;
+    }
+    return toMongoModel(user);
   }
 
   async delete(id: string): Promise<boolean> {
@@ -54,7 +67,8 @@ export default class UserService implements IUserService {
   }
 
   async findAll(): Promise<IUser[]> {
-    return await this.findAllUsersUseCase.execute();
+    const users = await this.findAllUsersUseCase.execute();
+    return users.map((user) => toMongoModel(user));
   }
 
   async exists(id: string): Promise<boolean> {

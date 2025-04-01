@@ -1,13 +1,13 @@
 import UseCaseBase from '../../../Shared/application/UseCaseBase';
+import User from '../../domain/models/User';
 import IUserRepository from '../../domain/repository/UserRepository';
-import { IUser } from '../UserModel';
 
-export default class FindAllUsersUseCase extends UseCaseBase<void, IUser[]> {
+export default class FindAllUsersUseCase extends UseCaseBase<void, User[]> {
   constructor(private readonly userRepository: IUserRepository) {
     super();
   }
 
-  override async execute(): Promise<IUser[]> {
+  override async execute(): Promise<User[]> {
     const users = await this.userRepository.findAll();
     return users;
   }

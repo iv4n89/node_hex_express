@@ -50,7 +50,7 @@ export default class Review {
     return new Review(
       id ? ReviewId.create(id) : ReviewId.generate(),
       UserId.create(userId),
-      ReviewAnswerBundle.create(answers),
+      ReviewAnswerBundle.create(answers)
     );
   }
 

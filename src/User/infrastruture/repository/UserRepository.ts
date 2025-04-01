@@ -1,10 +1,10 @@
-import { IUser } from '../../application/UserModel';
+import UserId from '../../../Shared/domain/valueObject/UserId';
 import User from '../../domain/models/User';
 import IUserRepository from '../../domain/repository/UserRepository';
 import UserEmail from '../../domain/valueObject/UserEmail';
-import UserId from '../../../Shared/domain/valueObject/UserId';
 import UserName from '../../domain/valueObject/UserName';
 import { UserModel } from '../models/UserModel';
+import toDomainModel from '../toDomainModel';
 import toMongoModel from '../toMongoModel';
 
 export default class UserRepository implements IUserRepository {
@@ -17,31 +17,31 @@ export default class UserRepository implements IUserRepository {
     return !!result;
   }
 
-  async findById(id: UserId): Promise<IUser | null> {
+  async findById(id: UserId): Promise<User | null> {
     const userId = id.getValue();
     const userModel = await UserModel.findOne({ id: userId });
     if (!userModel) {
       return null;
     }
-    return userModel;
+    return toDomainModel(userModel);
   }
 
-  async findByEmail(email: UserEmail): Promise<IUser | null> {
+  async findByEmail(email: UserEmail): Promise<User | null> {
     const userEmail = email.getValue();
     const userModel = await UserModel.findOne({ email: userEmail });
     if (!userModel) {
       return null;
     }
-    return userModel;
+    return toDomainModel(userModel);
   }
 
-  async findByName(name: UserName): Promise<IUser | null> {
+  async findByName(name: UserName): Promise<User | null> {
     const userName = name.getValue();
     const userModel = await UserModel.findOne({ name: userName });
     if (!userModel) {
       return null;
     }
-    return userModel;
+    return toDomainModel(userModel);
   }
 
   async delete(id: UserId): Promise<boolean> {
@@ -56,7 +56,7 @@ export default class UserRepository implements IUserRepository {
     return result.modifiedCount === 1;
   }
 
-  async findAll(): Promise<IUser[]> {
+  async findAll(): Promise<User[]> {
     return await UserModel.find();
   }
 

@@ -9,8 +9,7 @@ export default class FindAllReviewsUseCase extends UseCaseBase<void, Review[]> {
 
   override async execute(): Promise<Review[]> {
     const foundReviews = await this.reviewRepository.findAll();
-    if (!foundReviews)
-      throw new Error('No reviews found');
+    if (!foundReviews) throw new Error('No reviews found');
     return foundReviews;
   }
 }

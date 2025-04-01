@@ -11,9 +11,7 @@ export default class ReviewAnswerBundle extends ValueObject<
     this.validate(value);
   }
 
-  validate(
-    value: Array<IReviewAnswer>
-  ): void {
+  validate(value: Array<IReviewAnswer>): void {
     if (!Array.isArray(value)) {
       throw new Error('Invalid value for ReviewAnswerBundle: must be an array');
     }
