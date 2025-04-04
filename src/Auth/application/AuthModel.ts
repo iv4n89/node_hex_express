@@ -1,5 +1,4 @@
 import { IUser } from "../../User/application/UserModel";
-import Token from "../domain/valueObject/token";
 
 export interface IAuthModel {
     id: string;
@@ -11,5 +10,5 @@ export interface IAuthModel {
 
 export interface IAuthServiceOutput {
     user: IUser;
-    token: Token;
+    token: string;
 }

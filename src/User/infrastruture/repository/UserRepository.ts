@@ -12,8 +12,8 @@ export default class UserRepository implements IUserRepository {
 
   async save(user: User): Promise<boolean> {
     const userMongo = toMongoModel(user);
-    const userModel = UserModel.create(userMongo);
-    const result = await (await userModel).save();
+    const userModel = await UserModel.create(userMongo);
+    const result = await userModel.save();
     return !!result;
   }
 

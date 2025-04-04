@@ -25,10 +25,7 @@ export default class Token extends ValueObject<string> {
     return new Token(token);
   }
 
-  public static verify(
-    token: string,
-    { userId }: { userId: string }
-  ): boolean {
+  public static verify(token: string, { userId }: { userId: string }): boolean {
     try {
       const secretKey = process.env.JWT_SECRET;
       const decoded = jwt.verify(token, secretKey as string) as Record<
@@ -42,6 +39,20 @@ export default class Token extends ValueObject<string> {
     } catch (error) {
       console.error('Token verification failed:', error);
       return false;
+    }
+  }
+
+  public static getPayload(token: string): { userId: string } | null {
+    try {
+      const secretKey = process.env.JWT_SECRET;
+      const decoded = jwt.verify(token, secretKey as string) as Record<
+        string,
+        unknown
+      >;
+      return { userId: decoded.userId as string };
+    } catch (error) {
+      console.error('Token verification failed:', error);
+      return null;
     }
   }
 }

@@ -4,6 +4,7 @@ import mongoConnection from '../Shared/infrastruture/mongo/mongoConnection';
 import userRouter from '../User/infrastruture/routes/UserRoutes';
 import reviewRouter from '../Review/infrastruture/routes/ReviewRoutes';
 import errorHandling from '../middlewares/errorHandling';
+import authRouter from '../Auth/infrastructure/routes/AuthRoutes';
 
 export class Server {
   private express: Application;
@@ -49,5 +50,6 @@ export class Server {
 
     this.express.use('/api/user', userRouter);
     this.express.use('/api/review', reviewRouter);
+    this.express.use('/api/auth', authRouter);
   }
 }

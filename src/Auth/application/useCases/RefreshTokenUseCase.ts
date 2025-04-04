@@ -9,7 +9,7 @@ type RefreshTokenInput = {
 }
 
 type RefreshTokenOutput = {
-    token: string;
+    token: Token;
 }
 
 export default class RefreshTokenUseCase extends UseCaseBase<RefreshTokenInput, RefreshTokenOutput> {
@@ -35,7 +35,7 @@ export default class RefreshTokenUseCase extends UseCaseBase<RefreshTokenInput, 
             throw new Error("Token refresh failed");
         }
         return {
-            token: tokenRefreshed.getValue()
+            token: tokenRefreshed
         }
     }
 }
