@@ -42,6 +42,15 @@ export default class ReviewRepository implements IReviewRepository {
       return result;
   }
 
+  async findNoAnswerByUserId(userId: UserId): Promise<Array<Review> | null> {
+      const userIdValue = userId.getValue();
+      const result = await ReviewModel.find({userId: userIdValue, answers: { $len: 0 }});
+      if (!result) {
+          return null;
+      }
+      return result.map((review) => toDomainModel(review));
+  }
+
   async findAll(): Promise<Array<Review> | null> {
     const result = await ReviewModel.find();
     if (!result) {
