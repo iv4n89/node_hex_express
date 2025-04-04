@@ -34,6 +34,14 @@ export default class ReviewRepository implements IReviewRepository {
     return result.map((review) => toDomainModel(review));
   }
 
+  async countByUserId(userId: UserId): Promise<number> {
+      const result = await ReviewModel.countDocuments({userId: userId.getValue()});
+      if (!result) {
+          return 0;
+      }
+      return result;
+  }
+
   async findAll(): Promise<Array<Review> | null> {
     const result = await ReviewModel.find();
     if (!result) {

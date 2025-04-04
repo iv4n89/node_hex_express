@@ -7,6 +7,7 @@ export default interface IReviewRepository {
   findById(id: ReviewId): Promise<Review | null>;
   findByUserId(userId: UserId): Promise<Array<Review> | null>;
   findAll(): Promise<Array<Review> | null>;
+  countByUserId(userId: UserId): Promise<number>;
   delete(id: ReviewId): Promise<boolean>;
   update(review: Review): Promise<boolean>;
 }

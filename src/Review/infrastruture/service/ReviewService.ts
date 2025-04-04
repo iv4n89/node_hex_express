@@ -14,6 +14,7 @@ export default class ReviewService implements IReviewService {
   private readonly saveReviewUseCase: SaveReviewUseCase;
   private readonly findByIdReviewUseCase: FindReviewByIdUseCase;
   private readonly findByUserIdReviewUseCase: FindReviewsByUserIdUseCase;
+  private readonly countByUserIdReviewUseCase: FindReviewsByUserIdUseCase;
   private readonly findAllReviewUseCase: FindAllReviewsUseCase;
   private readonly updateReviewUseCase: UpdateReviewUseCase;
   private readonly deleteReviewUseCase: DeleteReviewUseCase;
@@ -23,6 +24,9 @@ export default class ReviewService implements IReviewService {
     this.saveReviewUseCase = new SaveReviewUseCase(reviewRepository);
     this.findByIdReviewUseCase = new FindReviewByIdUseCase(reviewRepository);
     this.findByUserIdReviewUseCase = new FindReviewsByUserIdUseCase(
+      reviewRepository
+    );
+    this.countByUserIdReviewUseCase = new FindReviewsByUserIdUseCase(
       reviewRepository
     );
     this.findAllReviewUseCase = new FindAllReviewsUseCase(reviewRepository);
@@ -50,6 +54,12 @@ export default class ReviewService implements IReviewService {
     const reviews = await this.findByUserIdReviewUseCase.execute(userId);
     if (!reviews) return null;
     return reviews.map((review) => toMongoModel(review));
+  }
+
+  async countByUserId(userId: string): Promise<number> {
+    const count = await this.countByUserIdReviewUseCase.execute(userId);
+    if (!count) return 0;
+    return count.length;
   }
 
   async delete(id: string): Promise<boolean> {

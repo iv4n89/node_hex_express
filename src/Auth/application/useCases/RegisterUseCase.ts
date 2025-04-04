@@ -3,12 +3,14 @@ import User from '../../../User/domain/models/User';
 import IUserRepository from '../../../User/domain/repository/UserRepository';
 import UserEmail from '../../../User/domain/valueObject/UserEmail';
 import IAuthRepository from '../../domain/repository/AuthRepository';
+import AuthIsAdmin from '../../domain/valueObject/AuthIsAdmin';
 import AuthPassword from '../../domain/valueObject/authPassword';
 
 type RegisterInput = {
   name: string;
   email: string;
   password: string;
+  isAdmin?: boolean;
 };
 
 type RegisterOutput = {
@@ -28,7 +30,7 @@ export default class RegisterUseCase extends UseCaseBase<
   }
 
   override async execute(input: RegisterInput): Promise<RegisterOutput> {
-    const { name, email, password } = input;
+    const { name, email, password, isAdmin = false } = input;
 
     const userExists = await this.userRepository.existsByEmail(
       UserEmail.create(email)
@@ -62,7 +64,8 @@ export default class RegisterUseCase extends UseCaseBase<
     const hashedPassword = AuthPassword.createHashed(password);
     const credentialsSaved = await this.authRepository.saveCredentials(
       user.id,
-      hashedPassword
+      hashedPassword,
+      AuthIsAdmin.create(isAdmin)
     );
     if (!credentialsSaved) {
       return {
