@@ -1,5 +1,11 @@
-import { Router } from "express";
-import { changePassword, login, refreshToken, register, validateToken } from "../controller/AuthController";
+import { Router } from 'express';
+import {
+  changePassword,
+  login,
+  refreshToken,
+  register,
+  validateToken,
+} from '../controller/AuthController';
 
 const router = Router();
 
