@@ -12,7 +12,12 @@ export default class Review {
   createdAt: Date;
   updatedAt?: Date;
 
-  constructor(id: ReviewId, userId: UserId, questionsId: QuestionId, answers: ReviewAnswerBundle) {
+  constructor(
+    id: ReviewId,
+    userId: UserId,
+    questionsId: QuestionId,
+    answers: ReviewAnswerBundle
+  ) {
     this.id = id;
     this.userId = userId;
     this.questionsId = questionsId;

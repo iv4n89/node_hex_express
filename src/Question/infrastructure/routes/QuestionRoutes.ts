@@ -1,5 +1,12 @@
-import { Router } from "express";
-import { createQuestion, deleteQuestion, getAllQuestions, getQuestionById, getQuestionsByLanguageId, updateQuestion } from "../controller/QuestionController";
+import { Router } from 'express';
+import {
+  createQuestion,
+  deleteQuestion,
+  getAllQuestions,
+  getQuestionById,
+  getQuestionsByLanguageId,
+  updateQuestion,
+} from '../controller/QuestionController';
 
 const router = Router();
 

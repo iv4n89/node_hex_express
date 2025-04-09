@@ -36,33 +36,42 @@ export default class ReviewRepository implements IReviewRepository {
   }
 
   async countByUserId(userId: UserId): Promise<number> {
-      const result = await ReviewModel.countDocuments({userId: userId.getValue()});
-      if (!result) {
-          return 0;
-      }
-      return result;
+    const result = await ReviewModel.countDocuments({
+      userId: userId.getValue(),
+    });
+    if (!result) {
+      return 0;
+    }
+    return result;
   }
 
   async findNoAnswerByUserId(userId: UserId): Promise<Array<Review> | null> {
-      const userIdValue = userId.getValue();
-      const result = await ReviewModel.find({userId: userIdValue, answers: { $len: 0 }});
-      if (!result) {
-          return null;
-      }
-      return result.map((review) => toDomainModel(review));
+    const userIdValue = userId.getValue();
+    const result = await ReviewModel.find({
+      userId: userIdValue,
+      answers: { $len: 0 },
+    });
+    if (!result) {
+      return null;
+    }
+    return result.map((review) => toDomainModel(review));
   }
 
-  async findByQuestionsId(questionsId: QuestionId): Promise<Array<Review> | null> {
-      try {
-        const result = await ReviewModel.find({ questionsId: questionsId.getValue() });
-        if (!result) {
-          return null;
-        }
-        return result.map((review) => toDomainModel(review));
-      } catch (error) {
-        console.error('Error finding reviews by question ID:', error);
+  async findByQuestionsId(
+    questionsId: QuestionId
+  ): Promise<Array<Review> | null> {
+    try {
+      const result = await ReviewModel.find({
+        questionsId: questionsId.getValue(),
+      });
+      if (!result) {
         return null;
       }
+      return result.map((review) => toDomainModel(review));
+    } catch (error) {
+      console.error('Error finding reviews by question ID:', error);
+      return null;
+    }
   }
 
   async findAll(): Promise<Array<Review> | null> {

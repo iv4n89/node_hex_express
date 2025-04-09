@@ -27,7 +27,7 @@ export default class ReviewService implements IReviewService {
   constructor() {
     const reviewRepository = new ReviewRepository();
     const questionRepository = new QuestionRepository();
-    
+
     this.saveReviewUseCase = new SaveReviewUseCase(reviewRepository);
     this.findByIdReviewUseCase = new FindReviewByIdUseCase(reviewRepository);
     this.findByUserIdReviewUseCase = new FindReviewsByUserIdUseCase(
@@ -38,7 +38,7 @@ export default class ReviewService implements IReviewService {
     );
     this.findByQuestionsIdReviewUseCase = new FindByQuestionsIdUseCase(
       reviewRepository,
-      questionRepository,
+      questionRepository
     );
     this.countByUserIdReviewUseCase = new FindReviewsByUserIdUseCase(
       reviewRepository
@@ -71,13 +71,15 @@ export default class ReviewService implements IReviewService {
   }
 
   async findByQuestionsId(questionsId: string): Promise<IReview[] | null> {
-    const reviews = await this.findByQuestionsIdReviewUseCase.execute(questionsId);
+    const reviews =
+      await this.findByQuestionsIdReviewUseCase.execute(questionsId);
     if (!reviews) return null;
     return reviews.map((review) => toMongoModel(review));
   }
 
   async findNoAnswerByUserId(userId: string): Promise<IReview[] | null> {
-    const reviews = await this.findNoAnswerByUserIdReviewUseCase.execute(userId);
+    const reviews =
+      await this.findNoAnswerByUserIdReviewUseCase.execute(userId);
     if (!reviews) return null;
     return reviews.map((review) => toMongoModel(review));
   }

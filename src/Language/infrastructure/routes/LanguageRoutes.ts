@@ -1,5 +1,12 @@
-import { Router } from "express";
-import { createLanguage, deleteOne, getAll, getById, getByName, update } from "../controller/LanguageController";
+import { Router } from 'express';
+import {
+  createLanguage,
+  deleteOne,
+  getAll,
+  getById,
+  getByName,
+  update,
+} from '../controller/LanguageController';
 
 const router = Router();
 

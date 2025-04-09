@@ -11,7 +11,12 @@ export default class AuthUser {
   createdAt: Date;
   updatedAt?: Date;
 
-  constructor(id: AuthId, userId: UserId, password: AuthPassword, authIsAdmin?: AuthIsAdmin) {
+  constructor(
+    id: AuthId,
+    userId: UserId,
+    password: AuthPassword,
+    authIsAdmin?: AuthIsAdmin
+  ) {
     this.id = id;
     this.userId = userId;
     this.password = password;

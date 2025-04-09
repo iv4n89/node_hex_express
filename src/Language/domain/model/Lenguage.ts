@@ -21,7 +21,12 @@ export default class Language {
     return new Language(LanguageId.generate(), LanguageName.create(name));
   }
 
-  toPrimitives(): { id: string; name: string; createdAt: Date; updatedAt?: Date } {
+  toPrimitives(): {
+    id: string;
+    name: string;
+    createdAt: Date;
+    updatedAt?: Date;
+  } {
     return {
       id: this.id.getValue(),
       name: this.name.getValue(),

@@ -14,7 +14,7 @@ export default class Question {
     languageId: LanguageId,
     descriptions: QuestionDescription[],
     createdAt?: Date,
-    updatedAt?: Date,
+    updatedAt?: Date
   ) {
     this.id = id;
     this.languageId = languageId;
@@ -47,9 +47,11 @@ export default class Question {
     return new Question(
       QuestionId.create(id),
       LanguageId.create(languageId),
-      descriptions.map((description) => QuestionDescription.create(description)),
-        new Date(createdAt || Date.now()),
-        new Date(updatedAt || Date.now())
+      descriptions.map((description) =>
+        QuestionDescription.create(description)
+      ),
+      new Date(createdAt || Date.now()),
+      new Date(updatedAt || Date.now())
     );
   }
 
