@@ -5,8 +5,8 @@ const reviewService = new ReviewService();
 
 export async function createReview(req: Request, res: Response) {
   try {
-    const { userId, answers } = req.body;
-    const rewiew = await reviewService.save(userId, answers);
+    const { userId, questionsId, answers } = req.body;
+    const rewiew = await reviewService.save(userId, questionsId, answers);
     if (!rewiew) {
       res.status(400).json({ message: 'Review already exists' });
     }

@@ -48,8 +48,16 @@ export default class ReviewService implements IReviewService {
     this.deleteReviewUseCase = new DeleteReviewUseCase(reviewRepository);
   }
 
-  async save(userId: string, answers: IReviewAnswer[]): Promise<boolean> {
-    return await this.saveReviewUseCase.execute({ userId: userId, answers });
+  async save(
+    userId: string,
+    questionsId: string,
+    answers: IReviewAnswer[]
+  ): Promise<boolean> {
+    return await this.saveReviewUseCase.execute({
+      userId: userId,
+      questionsId,
+      answers,
+    });
   }
 
   async findAll(): Promise<IReview[] | null> {
