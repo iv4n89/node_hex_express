@@ -1,7 +1,9 @@
+import QuestionRepository from '../../../Question/infrastructure/repository/QuestionRepository';
 import IReview from '../../application/ReviewModel';
 import IReviewService from '../../application/service/IReviewService';
 import DeleteReviewUseCase from '../../application/useCases/deleteReviewUseCase';
 import FindAllReviewsUseCase from '../../application/useCases/findAllReviewsUseCase';
+import FindByQuestionsIdUseCase from '../../application/useCases/FindByQuestionsIdUseCase';
 import FindNoAnswerByUserIdUseCase from '../../application/useCases/FindNoAnswerByUserIdUseCase';
 import FindReviewByIdUseCase from '../../application/useCases/findReviewByIdUseCase';
 import FindReviewsByUserIdUseCase from '../../application/useCases/findReviewsByUserIdUseCase';
@@ -15,6 +17,7 @@ export default class ReviewService implements IReviewService {
   private readonly saveReviewUseCase: SaveReviewUseCase;
   private readonly findByIdReviewUseCase: FindReviewByIdUseCase;
   private readonly findByUserIdReviewUseCase: FindReviewsByUserIdUseCase;
+  private readonly findByQuestionsIdReviewUseCase: FindByQuestionsIdUseCase;
   private readonly findNoAnswerByUserIdReviewUseCase: FindNoAnswerByUserIdUseCase;
   private readonly countByUserIdReviewUseCase: FindReviewsByUserIdUseCase;
   private readonly findAllReviewUseCase: FindAllReviewsUseCase;
@@ -23,6 +26,8 @@ export default class ReviewService implements IReviewService {
 
   constructor() {
     const reviewRepository = new ReviewRepository();
+    const questionRepository = new QuestionRepository();
+    
     this.saveReviewUseCase = new SaveReviewUseCase(reviewRepository);
     this.findByIdReviewUseCase = new FindReviewByIdUseCase(reviewRepository);
     this.findByUserIdReviewUseCase = new FindReviewsByUserIdUseCase(
@@ -30,6 +35,10 @@ export default class ReviewService implements IReviewService {
     );
     this.findNoAnswerByUserIdReviewUseCase = new FindNoAnswerByUserIdUseCase(
       reviewRepository
+    );
+    this.findByQuestionsIdReviewUseCase = new FindByQuestionsIdUseCase(
+      reviewRepository,
+      questionRepository,
     );
     this.countByUserIdReviewUseCase = new FindReviewsByUserIdUseCase(
       reviewRepository
@@ -57,6 +66,12 @@ export default class ReviewService implements IReviewService {
 
   async findByUserId(userId: string): Promise<IReview[] | null> {
     const reviews = await this.findByUserIdReviewUseCase.execute(userId);
+    if (!reviews) return null;
+    return reviews.map((review) => toMongoModel(review));
+  }
+
+  async findByQuestionsId(questionsId: string): Promise<IReview[] | null> {
+    const reviews = await this.findByQuestionsIdReviewUseCase.execute(questionsId);
     if (!reviews) return null;
     return reviews.map((review) => toMongoModel(review));
   }

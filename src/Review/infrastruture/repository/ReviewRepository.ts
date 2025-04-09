@@ -1,3 +1,4 @@
+import QuestionId from '../../../Question/domain/valueObject/QuestionId';
 import UserId from '../../../Shared/domain/valueObject/UserId';
 import Review from '../../domain/models/Review';
 import IReviewRepository from '../../domain/repository/ReviewRepository';
@@ -49,6 +50,19 @@ export default class ReviewRepository implements IReviewRepository {
           return null;
       }
       return result.map((review) => toDomainModel(review));
+  }
+
+  async findByQuestionsId(questionsId: QuestionId): Promise<Array<Review> | null> {
+      try {
+        const result = await ReviewModel.find({ questionsId: questionsId.getValue() });
+        if (!result) {
+          return null;
+        }
+        return result.map((review) => toDomainModel(review));
+      } catch (error) {
+        console.error('Error finding reviews by question ID:', error);
+        return null;
+      }
   }
 
   async findAll(): Promise<Array<Review> | null> {

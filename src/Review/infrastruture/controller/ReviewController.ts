@@ -42,6 +42,19 @@ export async function getReviewByUserId(req: Request, res: Response) {
   }
 }
 
+export async function getReviewByQuestionsId(req: Request, res: Response) {
+  try {
+    const { questionsId } = req.params;
+    const reviews = await reviewService.findByQuestionsId(questionsId);
+    if (!reviews) {
+      res.status(404).json({ message: 'Reviews not found' });
+    }
+    res.status(200).json(reviews);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error', error });
+  }
+}
+
 export async function getAllReviews(req: Request, res: Response) {
   try {
     const reviews = await reviewService.findAll();
