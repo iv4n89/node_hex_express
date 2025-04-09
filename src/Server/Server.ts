@@ -6,6 +6,7 @@ import reviewRouter from '../Review/infrastruture/routes/ReviewRoutes';
 import errorHandling from '../middlewares/errorHandling';
 import authRouter from '../Auth/infrastructure/routes/AuthRoutes';
 import languageRouter from '../Language/infrastructure/routes/LanguageRoutes';
+import questionRouter from '../Question/infrastructure/routes/QuestionRoutes';
 
 export class Server {
   private express: Application;
@@ -53,5 +54,6 @@ export class Server {
     this.express.use('/api/review', reviewRouter);
     this.express.use('/api/auth', authRouter);
     this.express.use('/api/language', languageRouter);
+    this.express.use('/api/questions', questionRouter);
   }
 }
