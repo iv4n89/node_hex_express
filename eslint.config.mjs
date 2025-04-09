@@ -6,16 +6,16 @@ import tseslint from 'typescript-eslint';
 export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs,ts}'],
-    ignores: ['**/node_modules/**', './cucumber.js', 'jest.config.js'],
+    ignores: ['**/node_modules/**', 'cucumber.js', 'jest.config.js'],
   },
   {
     files: ['**/*.{js,mjs,cjs,ts}'],
-    ignores: ['**/node_modules/**', './cucumber.js', 'jest.config.js'],
+    ignores: ['**/node_modules/**', 'cucumber.js', 'jest.config.js'],
     languageOptions: { globals: globals.browser },
   },
   {
     files: ['**/*.{js,mjs,cjs,ts}'],
-    ignores: ['**/node_modules/**', './cucumber.js', 'jest.config.js'],
+    ignores: ['**/node_modules/**', 'cucumber.js', 'jest.config.js'],
     plugins: { js },
     extends: ['js/recommended'],
   },
