@@ -57,7 +57,8 @@ export default class UserRepository implements IUserRepository {
   }
 
   async findAll(): Promise<User[]> {
-    return await UserModel.find();
+    const users = await UserModel.find();
+    return users.map((user) => toDomainModel(user));
   }
 
   async exists(id: UserId): Promise<boolean> {

@@ -12,7 +12,7 @@ export async function createUser(req: Request, res: Response) {
     }
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: 'Internal server error', error: (error as Error).message });
   }
 }
 
@@ -25,7 +25,7 @@ export async function getUserById(req: Request, res: Response) {
     }
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: 'Internal server error', error: (error as Error).message });
   }
 }
 
@@ -38,7 +38,7 @@ export async function getUserByEmail(req: Request, res: Response) {
     }
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: 'Internal server error', error: (error as Error).message });
   }
 }
 
@@ -51,7 +51,7 @@ export async function getUserByName(req: Request, res: Response) {
     }
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: 'Internal server error', error: (error as Error).message });
   }
 }
 
@@ -60,7 +60,7 @@ export async function getAllUsers(req: Request, res: Response) {
     const users = await userService.findAll();
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: 'Internal server error', error: (error as Error).message });
   }
 }
 
@@ -73,7 +73,7 @@ export async function deleteUser(req: Request, res: Response) {
     }
     res.status(200).json({ message: 'User deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: 'Internal server error', error: (error as Error).message });
   }
 }
 
@@ -88,7 +88,7 @@ export async function updateUser(req: Request, res: Response) {
     }
     res.status(200).json({ message: 'User updated successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: 'Internal server error', error: (error as Error).message });
   }
 }
 
@@ -101,7 +101,7 @@ export async function userExists(req: Request, res: Response) {
     }
     res.status(200).json({ message: 'User exists' });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: 'Internal server error', error: (error as Error).message });
   }
 }
 
@@ -114,6 +114,6 @@ export async function userExistsByEmail(req: Request, res: Response) {
     }
     res.status(200).json({ message: 'User exists' });
   } catch (error) {
-    res.status(500).json({ message: 'Internal server error', error });
+    res.status(500).json({ message: 'Internal server error', error: (error as Error).message });
   }
 }
