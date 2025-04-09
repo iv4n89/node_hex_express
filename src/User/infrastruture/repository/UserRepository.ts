@@ -63,7 +63,7 @@ export default class UserRepository implements IUserRepository {
 
   async exists(id: UserId): Promise<boolean> {
     const userId = id.getValue();
-    const userModel = await UserModel.findById(userId);
+    const userModel = await UserModel.findOne({ id: userId });
     return !!userModel;
   }
 

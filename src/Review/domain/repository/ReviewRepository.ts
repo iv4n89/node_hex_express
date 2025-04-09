@@ -9,6 +9,10 @@ export default interface IReviewRepository {
   findByUserId(userId: UserId): Promise<Array<Review> | null>;
   findNoAnswerByUserId(userId: UserId): Promise<Array<Review> | null>;
   findByQuestionsId(questionsId: QuestionId): Promise<Array<Review> | null>;
+  findByQuestionsIdAndUserId(
+    questionsId: QuestionId,
+    userId: UserId
+  ) : Promise<Review[] | null>;
   findAll(): Promise<Array<Review> | null>;
   countByUserId(userId: UserId): Promise<number>;
   delete(id: ReviewId): Promise<boolean>;
