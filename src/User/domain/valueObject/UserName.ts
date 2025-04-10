@@ -10,9 +10,9 @@ export default class UserName extends StringValueObject {
     if (value.length < 3 || value.length > 20) {
       throw new Error('UserName must be between 3 and 20 characters long.');
     }
-    if (!/^[a-zA-Z0-9_]+$/.test(value)) {
+    if (!/^[a-zA-Z0-9_ ]+$/.test(value)) {
       throw new Error(
-        'UserName can only contain letters, numbers, and underscores.'
+      'UserName can only contain letters, numbers, underscores, and spaces.'
       );
     }
   }
