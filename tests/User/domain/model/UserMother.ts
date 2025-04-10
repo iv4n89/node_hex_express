@@ -13,7 +13,7 @@ export class UserMother {
 
   static create(id: string, name: string, email: string): User {
     return User.create(
-      UserIdMother.generate(),
+      UserIdMother.create(id),
       UserNameMother.create(name),
       UserEmailMother.create(email)
     );
