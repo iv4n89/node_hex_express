@@ -13,6 +13,8 @@ const ReviewSchema = new Schema({
   questionsId: { type: String, required: true },
   answers: { type: [ReviewAnswerSchema], required: true },
   createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date },
+  finishedAt: { type: Date },
 });
 
 export const ReviewModel = mongoose.model<IReview>('Review', ReviewSchema);

@@ -11,32 +11,49 @@ export default class Review {
   answers: ReviewAnswerBundle;
   createdAt: Date;
   updatedAt?: Date;
+  finishedAt?: Date;
 
   constructor(
     id: ReviewId,
     userId: UserId,
     questionsId: QuestionId,
-    answers: ReviewAnswerBundle
+    answers: ReviewAnswerBundle,
+    createdAt?: Date,
+    updatedAt?: Date,
+    finishedAt?: Date
   ) {
     this.id = id;
     this.userId = userId;
     this.questionsId = questionsId;
     this.answers = answers;
-    this.createdAt = new Date();
+    this.createdAt = createdAt || new Date();
+    this.updatedAt = updatedAt;
+    this.finishedAt = finishedAt;
   }
 
   public static create(
     id: ReviewId,
     userId: UserId,
     questionsId: QuestionId,
-    answers: ReviewAnswerBundle
+    answers: ReviewAnswerBundle,
+    createdAt?: Date,
+    updatedAt?: Date,
+    finishedAt?: Date
   ): Review {
-    return new Review(id, userId, questionsId, answers);
+    return new Review(id, userId, questionsId, answers, createdAt, updatedAt, finishedAt);
   }
 
   public updateReviews(answers: ReviewAnswerBundle): void {
     this.answers = answers;
     this.updatedAt = new Date();
+  }
+
+  public finishReview(): void {
+    this.finishedAt = new Date();
+  }
+
+  public isFinished(): boolean {
+    return this.finishedAt !== undefined;
   }
 
   public static createWithoutId(
@@ -52,18 +69,27 @@ export default class Review {
     userId,
     questionsId,
     answers,
+    createdAt,
+    updatedAt,
+    finishedAt,
   }: {
     id?: string;
     userId: string;
     questionsId: string;
     answers: Array<IReviewAnswer>;
+    createdAt?: Date;
+    updatedAt?: Date;
+    finishedAt?: Date;
   }): Review {
     answers ||= [];
     return new Review(
       id ? ReviewId.create(id) : ReviewId.generate(),
       UserId.create(userId),
       QuestionId.create(questionsId),
-      ReviewAnswerBundle.create(answers)
+      ReviewAnswerBundle.create(answers),
+      createdAt || new Date(),
+      updatedAt,
+      finishedAt
     );
   }
 
@@ -74,6 +100,7 @@ export default class Review {
     answers: Array<IReviewAnswer>;
     createdAt: Date;
     updatedAt?: Date;
+    finishedAt?: Date;
   } {
     return {
       id: this.id.getValue(),
@@ -82,6 +109,7 @@ export default class Review {
       answers: this.answers.getAnswers(),
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      finishedAt: this.finishedAt,
     };
   }
 }

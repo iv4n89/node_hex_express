@@ -7,6 +7,7 @@ export default interface IReviewRepository {
   save(review: Review): Promise<boolean>;
   findById(id: ReviewId): Promise<Review | null>;
   findByUserId(userId: UserId): Promise<Array<Review> | null>;
+  findByUserIdAndFinished(userId: UserId): Promise<Array<Review> | null>;
   findNoAnswerByUserId(userId: UserId): Promise<Array<Review> | null>;
   findByQuestionsId(questionsId: QuestionId): Promise<Array<Review> | null>;
   findByQuestionsIdAndUserId(

@@ -6,6 +6,7 @@ import DeleteReviewUseCase from '../../application/useCases/deleteReviewUseCase'
 import FindAllReviewsUseCase from '../../application/useCases/findAllReviewsUseCase';
 import FindByQuestionsIdAndUserIdUseCase from '../../application/useCases/FindByQuestionsIdAndUserIdUseCase';
 import FindByQuestionsIdUseCase from '../../application/useCases/FindByQuestionsIdUseCase';
+import FindByUserIdAndFinishedUseCase from '../../application/useCases/FindByUserIdAndFinishedUseCase';
 import FindNoAnswerByUserIdUseCase from '../../application/useCases/FindNoAnswerByUserIdUseCase';
 import FindReviewByIdUseCase from '../../application/useCases/findReviewByIdUseCase';
 import FindReviewsByUserIdUseCase from '../../application/useCases/findReviewsByUserIdUseCase';
@@ -19,6 +20,7 @@ export default class ReviewService implements IReviewService {
   private readonly saveReviewUseCase: SaveReviewUseCase;
   private readonly findByIdReviewUseCase: FindReviewByIdUseCase;
   private readonly findByUserIdReviewUseCase: FindReviewsByUserIdUseCase;
+  private readonly findByUserIdAndFinishedReviewUseCase: FindByUserIdAndFinishedUseCase;
   private readonly findByQuestionsIdReviewUseCase: FindByQuestionsIdUseCase;
   private readonly findNoAnswerByUserIdReviewUseCase: FindNoAnswerByUserIdUseCase;
   private readonly findByQuestionsIdAndUserIdReviewUseCase: FindByQuestionsIdAndUserIdUseCase;
@@ -34,6 +36,8 @@ export default class ReviewService implements IReviewService {
 
     this.saveReviewUseCase = new SaveReviewUseCase(reviewRepository);
     this.findByIdReviewUseCase = new FindReviewByIdUseCase(reviewRepository);
+    this.findByUserIdAndFinishedReviewUseCase =
+      new FindByUserIdAndFinishedUseCase(reviewRepository);
     this.findByUserIdReviewUseCase = new FindReviewsByUserIdUseCase(
       reviewRepository
     );
@@ -76,6 +80,13 @@ export default class ReviewService implements IReviewService {
     const review = await this.findByIdReviewUseCase.execute(id);
     if (!review) return null;
     return toMongoModel(review);
+  }
+
+  async findByUserIdAndFinished(userId: string): Promise<IReview[] | null> {
+    const reviews =
+      await this.findByUserIdAndFinishedReviewUseCase.execute(userId);
+    if (!reviews) return null;
+    return reviews.map((review) => toMongoModel(review));
   }
 
   async findByUserId(userId: string): Promise<IReview[] | null> {

@@ -7,6 +7,7 @@ import {
   getReviewByQuestionsId,
   getReviewByQuestionsIdAndUserId,
   getReviewByUserId,
+  getReviewByUserIdAndFinished,
   updateReview,
 } from '../controller/ReviewController';
 
@@ -15,6 +16,7 @@ const router = Router();
 router.post('/', createReview);
 router.get('/:id', getReviewById);
 router.get('/user/:userId', getReviewByUserId);
+router.get('/user/finished/:userId', getReviewByUserIdAndFinished);
 router.get('/questions/:questionsId', getReviewByQuestionsId);
 router.get('/user/:userId/questions/:questionsId', getReviewByQuestionsIdAndUserId);
 router.get('/', getAllReviews);
